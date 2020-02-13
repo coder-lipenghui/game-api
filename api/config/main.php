@@ -97,7 +97,15 @@ return [
                     'class' => 'yii\rest\UrlRule','controller' => 'tradevc',
                     'pluralize'=>false
                 ],
-
+                //脚本上传
+                [
+                    'class' => 'yii\rest\UrlRule','controller' => 'script',
+                    'pluralize'=>false,
+                    'extraPatterns' => [
+                        'OPTIONS,POST upload' => 'upload',
+                        'POST update' =>'update'
+                    ]
+                ],
                 ['class' => 'yii\rest\UrlRule','controller' => 'payinfo'],
                 ['class' => 'yii\rest\UrlRule','controller' => 'couple'],
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
