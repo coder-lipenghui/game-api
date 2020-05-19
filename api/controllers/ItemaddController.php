@@ -32,7 +32,7 @@ class ItemaddController extends ActiveController
         TabItemAdd::setDBPrefix($sku,$serverId,$db);
         $query=TabItemAdd::find();
         //必要字段
-        $query->where(['playername'=>$playerName])
+        $query->where(['playername'=>$playerName,'gameId'=>$sku])
         ->andFilterWhere([//非必要字段
             'mIdentId'=>$identId,
             'src'=>$src,

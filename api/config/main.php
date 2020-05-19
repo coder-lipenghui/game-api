@@ -106,6 +106,11 @@ return [
                         'POST update' =>'update'
                     ]
                 ],
+                //系统升级日志
+                [
+                    'class' => 'yii\rest\UrlRule','controller' => 'function',
+                    'pluralize'=>false,
+                ],
                 ['class' => 'yii\rest\UrlRule','controller' => 'payinfo'],
                 ['class' => 'yii\rest\UrlRule','controller' => 'couple'],
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
