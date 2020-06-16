@@ -27,7 +27,12 @@ class FunctionController extends ActiveController
         if ($type==10011)
         {
             return $this->equip($sku,$serverId,$db,$type);
-        }else{
+        }
+        elseif ($type==10012)
+        {
+            return $this->xiangqian($sku,$serverId,$db,$type);
+        }
+        else{
             return $this->attribute($sku,$serverId,$db,$type);
         }
     }
@@ -53,7 +58,7 @@ class FunctionController extends ActiveController
      */
     public function actionXiangqian($sku,$serverId,$db)
     {
-        return $this->attribute($sku,$serverId,$db,10012);
+        return $this->xiangqian($sku,$serverId,$db,10012);
     }
     public function actionZhanjiang($sku,$serverId,$db)
     {
@@ -81,8 +86,9 @@ class FunctionController extends ActiveController
             ->groupBy(['chrname','type','subtype'])
             ->asArray()
             ->all();
+        $group=['type','subtype','newlv'];
 
-        $subQuery=TabFunction::find()->where(['id'=>$ids])->groupBy(['type','subtype','newlv']);
+        $subQuery=TabFunction::find()->where(['id'=>$ids])->groupBy($group);
 
         $query=TabFunction::find()->select(['type','subtype','newlv','num'=>'count(*)'])->from(['t1'=>$subQuery])->groupBy(['t1.type','t1.subtype','t1.newlv']);
         $data=$query->asArray()->all();
@@ -94,6 +100,33 @@ class FunctionController extends ActiveController
         return ['total'=>$playerTotal,'data'=>$data];
     }
 
+    /**
+     * 镶嵌数据
+     * @param $sku
+     * @param $serverId
+     * @param $db
+     * @param $type
+     * @return array
+     */
+    private function xiangqian($sku,$serverId,$db,$type)
+    {
+        TabFunction::setDBPrefix($sku,$serverId,$db);
+
+        $playerTotal=$ids=TabFunction::find()
+            ->andFilterWhere(['type'=>$type])
+            ->groupBy(['chrname'])->count();
+
+        $ids=TabFunction::find()
+            ->select(['id'=>'MAX(id)'])
+            ->andFilterWhere(['type'=>$type])
+            ->groupBy(['chrname','type','subtype','oldlv'])
+            ->asArray()
+            ->all();
+        $subQuery=TabFunction::find()->where(['id'=>$ids]);
+        $query=TabFunction::find()->select(['type','subtype','oldlv','num'=>'count(newlv)'])->from(['t1'=>$subQuery])->groupBy(['t1.type','t1.subtype','t1.oldlv']);
+        $data=$query->asArray()->all();
+        return ['total'=>$playerTotal,'data'=>$data];
+    }
     /**
      * 单属性类型功能
      * @param $sku
