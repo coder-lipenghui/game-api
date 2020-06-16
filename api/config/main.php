@@ -43,6 +43,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule','controller' => 'user'],
+
                 //玩家信息接口
                 [
                     'class' => 'yii\rest\UrlRule','controller' => 'player',
@@ -109,6 +110,16 @@ return [
                 //系统升级日志
                 [
                     'class' => 'yii\rest\UrlRule','controller' => 'function',
+                    'pluralize'=>false,
+                ],
+                //登陆接口
+                [
+                    'class'=>'yii\rest\UrlRule','controller' => 'login',
+                    'pluralize'=>false,
+                ],
+                //发货接口
+                [
+                    'class'=>'yii\rest\UrlRule','controller' => 'payment',
                     'pluralize'=>false,
                 ],
                 ['class' => 'yii\rest\UrlRule','controller' => 'payinfo'],
