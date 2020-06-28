@@ -2,9 +2,7 @@
 
 
 namespace api\models;
-
-
-use GameSocketHelper;
+use api\helpers\GameSocketHelper;
 
 class PayScriptValidate extends PayScript
 {
@@ -61,12 +59,25 @@ class PayScriptValidate extends PayScript
         {
             return ['code'=>-13,'msg'=>'订单创建失败'];
         }
+        $this->notify($this->port,$this->roleid);
         return['code'=>1,'msg'=>'success'];
     }
+    /**
+     * 通知游戏刷新
+     * @param $port
+     * @param $roleId
+     */
     public function notify($port,$roleId)
     {
-        $info='frpay '.$roleId;
-        GameSocketHelper::send($port,$info);
+        try
+        {
+            $info='frpay '.$roleId;
+            GameSocketHelper::send($port,$info);
+        }catch (\Exception $exception)
+        {
+            \Yii::error("通知游戏刷新出现异常:".$exception->getMessage());
+        }
+
     }
     /**
      * @param $type 支付类型

@@ -1,8 +1,7 @@
 <?php
 
-
 namespace api\models;
-use GameSocketHelper;
+use api\helpers\GameSocketHelper;
 
 class PayNormalValidate extends PayInfo
 {
@@ -45,6 +44,7 @@ class PayNormalValidate extends PayInfo
         {
             return ['code'=>-4,'msg'=>'验证失败'];
         }
+        $this->chrname=
         $this->paytime=date('Y-m-d H:i:s',$this->paytime);
         $order=self::find()->where(['paynum'=>$this->paynum])->one();
         if (!empty($order))
@@ -55,12 +55,26 @@ class PayNormalValidate extends PayInfo
         {
             return ['code'=>-13,'msg'=>'订单创建失败'];
         }
+        $this->notify($this->port,$this->roleid);
         return['code'=>1,'msg'=>'success'];
     }
+
+    /**
+     * 通知游戏刷新
+     * @param $port
+     * @param $roleId
+     */
     public function notify($port,$roleId)
     {
-        $info='frvc '.$roleId;
-        GameSocketHelper::send($port,$info);
+        try
+        {
+            $info='frvc '.$roleId;
+            GameSocketHelper::send($port,$info);
+        }catch (\Exception $exception)
+        {
+            \Yii::error("通知游戏刷新出现异常:".$exception->getMessage(),'payment');
+        }
+
     }
     /**
      * @param $type 支付类型

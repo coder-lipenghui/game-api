@@ -17,13 +17,14 @@ class LoginValidate extends LoginInfo
     //临时的KEY，需要做成后台配置
     private static $LOGIN_KEY="KOSD6PXtEkb0fRj@Ce7evfltKCMo568S";
     private static $PAY_KEY="MkH3!9f*KW1BguWS6cOEzn1EPq%TRA";
-    private static $TIMEOUT=6000;
+    private static $TIMEOUT=6000;//游戏服务器有3分钟
 
     public $uname='';
     public $time;
 
     public $sku;
     public $db;
+    public $serverIndex;
     public function rules()
     {
         return [
@@ -31,7 +32,7 @@ class LoginValidate extends LoginInfo
             [['sign'],'string'],
             [['onlineip'], 'string', 'max' => 50],
             [['channelId'], 'string', 'max' => 45],
-            [['time','db'],'integer'],
+            [['time','db','serverIndex'],'integer'],
             [['uname','username', 'serverid', 'ticket', 'source', 'deviceId','sku','isAdult'], 'string', 'max' => 255],
         ];
     }
@@ -81,7 +82,7 @@ class LoginValidate extends LoginInfo
         }
 
         //登陆日志
-        LoginLog::setDBPrefix($this->sku,$this->serverid,$this->db);
+        LoginLog::setDBPrefix($this->sku,$this->serverIndex,$this->db);
         $log=LoginLog::find()->where(['uname'=>$this->uname])->one();
         if (empty($log))
         {
@@ -99,8 +100,10 @@ class LoginValidate extends LoginInfo
             return ['error_code'=>-8,'msg'=>'登陆日志数据更新失败'];
         }
 
-        //防沉迷信息
-        Fcm::setDBPrefix($this->sku,$this->serverid,1);
+        //防沉迷信息，暂时先关闭防沉迷数据库更新
+        /*
+        //TODO 这边换成replace的形式
+        Fcm::setDBPrefix($this->sku,$this->serverIndex,1);
         $adult=Fcm::find()->where(['account'=>$this->uname])->one();
         if (empty($adult))
         {
@@ -116,6 +119,7 @@ class LoginValidate extends LoginInfo
         {
             return ['error_code'=>-7,'msg'=>'防沉迷信息更新失败','error'=>$adult->getErrors()];
         }
+        */
         return  ['error_code' => 1, 'msg' => 'success', 'sign' => $this->sign, 'ticket' => $this->ticket, 'username' => $this->uname];
     }
     public function getSign($account,$time)

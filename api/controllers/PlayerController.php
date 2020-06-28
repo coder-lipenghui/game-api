@@ -37,26 +37,6 @@ class PlayerController extends ActiveController
         ]);
         return $data;
     }
-//    public function actionSearch($sku,$serverId,$type,$chrname,$account)
-//    {
-//        //显示的指定数据库
-//        PlayerApi::setDBPrefix($sku,$serverId,$type);
-//        $ac=$account==null?"":$account;
-//        $cn=$chrname==null?"":$chrname;
-//        $query=PlayerApi::find();
-//        if ($ac!=null && $ac!="")
-//        {
-//            $query=PlayerApi::find()->where(['account'=>$ac]);
-//        }elseif ($cn!="" && $ac=="")
-//        {
-//            $query=PlayerApi::find()->filterWhere(['like','chrname',$cn])->orderBy('lv DESC');
-//        }else{
-//            $query->where('0=1');
-//        }
-//        return new ActiveDataProvider([
-//            'query'=>$query
-//        ]);
-//    }
     public function actionItems($sku,$serverId,$db,$seedId)
     {
         //显示的指定数据库

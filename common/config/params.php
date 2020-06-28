@@ -3,6 +3,8 @@ return [
     'adminEmail' => 'admin@example.com',
     'supportEmail' => 'support@example.com',
     'user.passwordResetTokenExpire' => 3600,
+    'loginKey'=>'KOSD6PXtEkb0fRj@Ce7evfltKCMo568S',
+    'payKey'=>'MkH3!9f*KW1BguWS6cOEzn1EPq%TRA',
 
     //游戏数据库端口配置
     'SMALL_PORT'=>3310,

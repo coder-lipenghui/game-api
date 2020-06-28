@@ -41,5 +41,9 @@ class PaymentController extends ActiveController
         $model::setDBPrefix($sku,$serverId,$db);
         return $model->verify();
     }
-
+    public function actionNotify()
+    {
+        $model=new PayNormalValidate();
+        $model->notify(8022,"69f9abb8207b2acda800516493cd2d0f");
+    }
 }

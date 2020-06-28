@@ -5,8 +5,15 @@ use Yii;
 class BaseApi extends ActiveRecord
 {
     private static $prefixDbName;
+    public static $SKU;
+    public static $SERVERID;
+    public static $DB;
     public static function setDBPrefix($sku,$serverId,$db)
     {
+        self::$SKU=$sku;
+        self::$SERVERID=$serverId;
+        self::$DB=$db;
+
         $dbName="";
         switch ($db)
         {
