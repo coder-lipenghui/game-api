@@ -12,6 +12,7 @@ return [
     'controllerNamespace' => 'api\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'timeZone' => 'Asia/Shanghai',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -31,6 +32,13 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'categories' => ['payment'],
+                    'levels' => ['error'],
+                    'logVars' => ['*'],
+                    'logFile' => '@runtime/logs/payment.log',//TODO 后面使用匿名函数将log按照日期来划分
                 ],
             ],
         ],
@@ -117,10 +125,18 @@ return [
                     'class'=>'yii\rest\UrlRule','controller' => 'login',
                     'pluralize'=>false,
                 ],
+                //CDK使用接口
+                [
+                    'class'=>'yii\rest\UrlRule','controller' => 'cdkey',
+                    'pluralize'=>false,
+                ],
                 //发货接口
                 [
                     'class'=>'yii\rest\UrlRule','controller' => 'payment',
                     'pluralize'=>false,
+                    'extraPatterns' => [
+                        'GET notify' => 'notify'
+                    ]
                 ],
                 ['class' => 'yii\rest\UrlRule','controller' => 'payinfo'],
                 ['class' => 'yii\rest\UrlRule','controller' => 'couple'],
