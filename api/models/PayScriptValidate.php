@@ -22,7 +22,7 @@ class PayScriptValidate extends PayScript
     {
         return [
             [['channelId', 'type','paynum', 'roleid', 'serverid','port', 'paygold', 'paymoney','payscript', 'paytime','flag'], 'required'],
-            [['payseed', 'status','roleid', 'amount', 'num','type', 'serverid','type','paytime','paymoney','port'], 'integer'],
+            [['payseed', 'status','amount', 'num','type', 'serverid','type','paytime','paymoney','port'], 'integer'],
             [['platform', 'char_account', 'char_id', 'char_name','roleid','paynum','flag','paytouser','payscript'], 'string', 'max' => 255],
         ];
     }
