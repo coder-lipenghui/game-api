@@ -47,14 +47,14 @@ class CdkeyValidate extends Gift
         $this->typeid=$this->item;
         $this->server_id=1001;
         $this->msg='激活码';
-        $this->chrname=$this->roleName;
+        $this->chrname=$this->roleId;
         $this->number=1;
         $this->code=$this->cdkey;
         if (!$this->save())
         {
            return ['code'=>-4,'msg'=>'使用激活码失败'];
         }
-        $this->notify($this->roleId,$this->port);
+        $this->notify($this->port,$this->roleId);
         return ['code'=>1,'msg'=>'success'];
     }
     /**
