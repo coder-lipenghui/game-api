@@ -50,6 +50,12 @@ class CdkeyValidate extends Gift
         $this->chrname=$this->roleId;
         $this->number=1;
         $this->code=$this->cdkey;
+
+        $used=self::find()->where(['code'=>$this->cdkey])->one();
+        if (!empty($used))
+        {
+            return ['code'=>-4,'msg'=>'该激活码已使用过'];
+        }
         if (!$this->save())
         {
            return ['code'=>-4,'msg'=>'使用激活码失败'];
