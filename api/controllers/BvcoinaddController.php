@@ -27,9 +27,9 @@ class BvcoinaddController extends ActiveController
         return $actions;
     }
 
-    public function actionIndex($sku,$serverId,$db,$playerName,$src,$addvc,$from,$to)
+    public function actionIndex($sku,$did,$serverId,$db,$playerName,$src,$addvc,$from,$to)
     {
-        TabVcoinbindAdd::setDBPrefix($sku,$serverId,$db);
+        TabVcoinbindAdd::setDBPrefix($sku,$did,$serverId,$db);
         $query=TabVcoinbindAdd::find();
         //必要字段
         $query->where(['playername'=>$playerName])

@@ -26,9 +26,9 @@ class TradevcController extends ActiveController
         unset($actions['delete'],$actions['create'],$actions['update'],$actions['index']);
         return $actions;
     }
-    public function actionIndex($sku,$serverId,$db,$playerName,$targetName,$vcoin,$from,$to)
+    public function actionIndex($sku,$did,$serverId,$db,$playerName,$targetName,$vcoin,$from,$to)
     {
-        TabTradevc::setDBPrefix($sku,$serverId,$db);
+        TabTradevc::setDBPrefix($sku,$did,$serverId,$db);
         $query=TabTradevc::find();
 
         $query->andFilterWhere(['tradeG'=>$playerName])

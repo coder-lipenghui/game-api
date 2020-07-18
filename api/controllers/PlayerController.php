@@ -27,29 +27,29 @@ class PlayerController extends ActiveController
 
         return $actions;
     }
-    public function actionView($sku,$serverId,$db,$id,$chrname)
+    public function actionView($sku,$did,$serverId,$db,$id,$chrname)
     {
         //显示的指定数据库
-        Player::setDBPrefix($sku,$serverId,$db);
+        Player::setDBPrefix($sku,$did,$serverId,$db);
         $query=Player::find()->where(['chrname'=>$chrname]);
         $data=new ActiveDataProvider([
             'query'=>$query
         ]);
         return $data;
     }
-    public function actionItems($sku,$serverId,$db,$seedId)
+    public function actionItems($sku,$did,$serverId,$db,$seedId)
     {
         //显示的指定数据库
-        Player::setDBPrefix($sku,$serverId,$db);
+        Player::setDBPrefix($sku,$did,$serverId,$db);
         $query=Player::find()->where(['seedId'=>$seedId])->limit(1);
         return new ActiveDataProvider([
             'query'=>$query
         ]);
     }
-    public function actionIndex($sku,$serverId,$db,$chrname,$account)
+    public function actionIndex($sku,$did,$serverId,$db,$chrname,$account)
     {
         //显示的指定数据库
-        Player::setDBPrefix($sku,$serverId,$db);
+        Player::setDBPrefix($sku,$did,$serverId,$db);
         $ac=$account==null?"":$account;
         $cn=$chrname==null?"":$chrname;
         $query=Player::find();

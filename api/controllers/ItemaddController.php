@@ -26,10 +26,10 @@ class ItemaddController extends ActiveController
         unset($actions['delete'],$actions['create'],$actions['update'],$actions['index']);
         return $actions;
     }
-    public function actionIndex($sku,$serverId,$db,$playerName,$itemId,$src,$identId,$from,$to)
+    public function actionIndex($sku,$did,$serverId,$db,$playerName,$itemId,$src,$identId,$from,$to)
     {
 //        exit(var_dump(Yii::$app->request->getQueryParams()));
-        TabItemAdd::setDBPrefix($sku,$serverId,$db);
+        TabItemAdd::setDBPrefix($sku,$did,$serverId,$db);
         $query=TabItemAdd::find();
         //必要字段
         $query->where(['playername'=>$playerName,'gameId'=>$sku])

@@ -27,9 +27,9 @@ class BvcoinremController extends ActiveController
         return $actions;
     }
 
-    public function actionIndex($sku,$serverId,$db,$playerName,$src,$addvc,$from,$to)
+    public function actionIndex($sku,$did,$serverId,$db,$playerName,$src,$addvc,$from,$to)
     {
-        TabVconinbindRem::setDBPrefix($sku,$serverId,$db);
+        TabVconinbindRem::setDBPrefix($sku,$did,$serverId,$db);
         $query=TabVconinbindRem::find();
         //必要字段
         $query->where(['playername'=>$playerName])

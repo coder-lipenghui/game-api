@@ -72,9 +72,9 @@ class FunctionController extends ActiveController
      * @param $type
      * @return array
      */
-    private function equip($sku,$serverId,$db,$type)
+    private function equip($sku,$did,$serverId,$db,$type)
     {
-        TabFunction::setDBPrefix($sku,$serverId,$db);
+        TabFunction::setDBPrefix($sku,$did,$serverId,$db);
 
         $playerTotal=$ids=TabFunction::find()
             ->andFilterWhere(['type'=>$type])

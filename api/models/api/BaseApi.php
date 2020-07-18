@@ -6,9 +6,10 @@ class BaseApi extends ActiveRecord
 {
     private static $prefixDbName;
     public static $SKU;
+    public static $DISTRIBUTORID;
     public static $SERVERID;
     public static $DB;
-    public static function setDBPrefix($sku,$serverId,$db)
+    public static function setDBPrefix($sku,$did,$serverId,$db)
     {
         self::$SKU=$sku;
         self::$SERVERID=$serverId;
@@ -27,7 +28,7 @@ class BaseApi extends ActiveRecord
                 $dbName="octlog";
                 break;
         }
-        self::$prefixDbName=$sku."_".$serverId."_".$dbName;
+        self::$prefixDbName=$sku."_".$did."_".$serverId."_".$dbName;
     }
     public static function getDb()
     {

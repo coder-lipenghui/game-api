@@ -18,10 +18,10 @@ class CdkeyController extends ActiveController
         return $myActions;
     }
 
-    public function actionCreate($sku,$serverId,$db)
+    public function actionCreate($sku,$did,$serverId,$db)
     {
         $model=new CdkeyValidate();
-        $model::setDBPrefix($sku,$serverId,$db);
+        $model::setDBPrefix($sku,$did,$serverId,$db);
         return $model->useCdkey();
     }
 }

@@ -32,11 +32,11 @@ class LoginController extends ActiveController
     {
         return [];
     }
-    public function actionCreate($sku,$serverId,$db)
+    public function actionCreate($sku,$did,$serverId,$db)
     {
-        LoginValidate::setDBPrefix($sku,$serverId,$db);
+        LoginValidate::setDBPrefix($sku,$did,$serverId,$db);
         $validateModel=new LoginValidate();
-        $validateModel::setDBPrefix($sku,$serverId,$db);
+        $validateModel::setDBPrefix($sku,$did,$serverId,$db);
         return $validateModel->login();
     }
 }

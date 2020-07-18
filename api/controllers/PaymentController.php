@@ -22,7 +22,7 @@ class PaymentController extends ActiveController
         unset($actions['create']);
         return $actions;
     }
-    public function actionCreate($sku,$serverId,$db)
+    public function actionCreate($sku,$did,$serverId,$db)
     {
         //区分类型 普通，脚本
         $type=\Yii::$app->request->getBodyParam('type');
@@ -38,7 +38,7 @@ class PaymentController extends ActiveController
         }else{
             $model=new PayScriptValidate();
         }
-        $model::setDBPrefix($sku,$serverId,$db);
+        $model::setDBPrefix($sku,$did,$serverId,$db);
         return $model->verify();
     }
     public function actionNotify()

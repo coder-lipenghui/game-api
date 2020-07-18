@@ -26,9 +26,9 @@ class TradeController extends ActiveController
         unset($actions['delete'],$actions['create'],$actions['update'],$actions['index']);
         return $actions;
     }
-    public function actionIndex($sku,$serverId,$db,$playerName,$targetName,$mTypeID,$mIndentID,$from,$to)
+    public function actionIndex($sku,$did,$serverId,$db,$playerName,$targetName,$mTypeID,$mIndentID,$from,$to)
     {
-        TabTrade::setDBPrefix($sku,$serverId,$db);
+        TabTrade::setDBPrefix($sku,$did,$serverId,$db);
         $query=TabTrade::find();
 
         $query->andFilterWhere(['tradeG'=>$playerName])
