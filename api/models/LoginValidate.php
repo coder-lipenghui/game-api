@@ -23,7 +23,6 @@ class LoginValidate extends LoginInfo
     public $time;
 
     public $sku;
-    public $did;
     public $db;
     public $serverIndex;
     public function rules()
@@ -33,7 +32,7 @@ class LoginValidate extends LoginInfo
             [['sign'],'string'],
             [['onlineip'], 'string', 'max' => 50],
             [['channelId'], 'string', 'max' => 45],
-            [['time','db','serverIndex','did'],'integer'],
+            [['time','db','serverIndex'],'integer'],
             [['uname','username', 'serverid', 'ticket', 'source', 'deviceId','sku','isAdult'], 'string', 'max' => 255],
         ];
     }
@@ -83,7 +82,7 @@ class LoginValidate extends LoginInfo
         }
 
         //登陆日志
-        LoginLog::setDBPrefix($this->sku,$this->did,$this->serverIndex,$this->db);
+        LoginLog::setDBPrefix($this->sku,$this->serverIndex,$this->db);
         $log=LoginLog::find()->where(['uname'=>$this->uname])->one();
         if (empty($log))
         {
