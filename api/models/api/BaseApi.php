@@ -9,12 +9,13 @@ class BaseApi extends ActiveRecord
     public static $DISTRIBUTORID;
     public static $SERVERID;
     public static $DB;
+
     public static function setDBPrefix($sku,$did,$serverId,$db)
     {
         self::$SKU=$sku;
+        self::$DISTRIBUTORID=$did;
         self::$SERVERID=$serverId;
         self::$DB=$db;
-
         $dbName="";
         switch ($db)
         {
