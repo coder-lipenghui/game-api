@@ -9,7 +9,7 @@ use yii\rest\ActiveController;
 
 class CdkeyController extends ActiveController
 {
-    public $modelClass="api/models/CdkeyValidate";
+    public $modelClass="api\models\CdkeyValidate";
 
     public function actions()
     {

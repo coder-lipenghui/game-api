@@ -39,7 +39,7 @@ class CdkeyValidate extends Gift
         {
             return ['code'=>-1,'msg'=>'params error'];
         }
-        $mySign=md5($this->roleId.$this->roleName.$this->cdkey.$this->item.$this->variety.$this->type.self::$KEY);
+        $mySign=md5($this->roleId.urldecode($this->roleName).$this->cdkey.$this->item.urldecode($this->variety).$this->type.self::$KEY);
         if ($mySign!=$this->sign)
         {
             return ['code'=>-5,'msg'=>'sign validate failed'];
