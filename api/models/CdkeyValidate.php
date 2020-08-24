@@ -17,12 +17,13 @@ class CdkeyValidate extends Gift
     public $variety;
     public $sign;
     public $port;
+    public $type;
 
     public function rules()
     {
         $rules = [
-            [['roleId', 'roleName', 'cdkey', 'item', 'variety', 'sign','port'], 'required'],
-            [['used', 'bind', 'typeid', 'server_id', 'number','port'], 'integer'],
+            [['roleId', 'roleName', 'cdkey', 'item', 'variety', 'sign','port','type'], 'required'],
+            [['used', 'bind', 'typeid', 'server_id', 'number','port','type'], 'integer'],
             [['msg'], 'string', 'max' => 60],
             [['roleId', 'roleName', 'cdkey', 'item', 'variety', 'sign', 'chrname', 'code'], 'string', 'max' => 255],
         ];
@@ -38,7 +39,7 @@ class CdkeyValidate extends Gift
         {
             return ['code'=>-1,'msg'=>'params error'];
         }
-        $mySign=md5($this->roleId.$this->roleName.$this->cdkey.$this->item.$this->variety.self::$KEY);
+        $mySign=md5($this->roleId.$this->roleName.$this->cdkey.$this->item.$this->variety.$this->type.self::$KEY);
         if ($mySign!=$this->sign)
         {
             return ['code'=>-5,'msg'=>'sign validate failed'];
@@ -49,9 +50,9 @@ class CdkeyValidate extends Gift
         $this->msg='激活码';
         $this->chrname=$this->roleId;
         $this->number=1;
-        $this->code=$this->cdkey;
+        $this->code=$this->type==1?$this->cdkey:$this->cdkey."_".$this->roleId;
 
-        $used=self::find()->where(['code'=>$this->cdkey])->one();
+        $used=self::find()->where(['code'=>$this->code])->one();
         if (!empty($used))
         {
             return ['code'=>-4,'msg'=>'该激活码已使用过'];
