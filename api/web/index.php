@@ -13,6 +13,10 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/main.php',
     require __DIR__ . '/../config/db/mrzg.php',
     require __DIR__ . '/../config/db/tzcq.php',
+    require __DIR__ . '/../config/db/lzcq.php',
+    require __DIR__ . '/../config/db/lstx.php',
+    require __DIR__ . '/../config/db/juren.php',
+    require __DIR__ . '/../config/db/qxzb.php',
     require __DIR__ . '/../config/main-local.php'
 );
 
