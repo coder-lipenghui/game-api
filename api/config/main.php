@@ -138,6 +138,14 @@ return [
                         'GET notify' => 'notify'
                     ]
                 ],
+                //金钻消耗
+                [
+                    'class'=>'yii\rest\UrlRule','controller' => 'consume',
+                    'pluralize'=>false,
+                    'extraPatterns' => [
+                        'GET notify' => 'notify'
+                    ]
+                ],
                 ['class' => 'yii\rest\UrlRule','controller' => 'payinfo'],
                 ['class' => 'yii\rest\UrlRule','controller' => 'couple'],
                 '<controller:\w+>/<id:\d+>'=>'<controller>/view',
